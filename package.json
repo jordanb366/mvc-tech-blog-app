@@ -1,0 +1,32 @@
+{
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "connect-session-sequelize": "^7.1.5",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "express-handlebars": "^6.0.6",
+    "express-session": "^1.17.3",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.22.1"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "mvc-tech-blog-app",
+  "description": "A tech blog using MVC paradigm",
+  "version": "1.0.0",
+  "main": "server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jordanb366/mvc-tech-blog-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jordanb366/mvc-tech-blog-app/issues"
+  },
+  "homepage": "https://github.com/jordanb366/mvc-tech-blog-app#readme"
+}
