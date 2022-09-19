@@ -1,12 +1,14 @@
-// index models will go here
 const User = require("./User");
-// posts for blog may go here once logins are working
+const Posts = require("./Posts");
 
-// commenting out for now until login is tested
-// User.hasMany({
-//   //  Need some type of foreign key for blog posts
-// });
+User.hasMany(Posts, {
+  foreignKey: "user_id",
+  onDelete: "CASCADE",
+});
 
-// blog post will belong to users most likely
+Posts.belongsTo(User, {
+  foreignKey: "user_id",
+  //   onDelete: "CASCADE",
+});
 
-module.exports = { User };
+module.exports = { User, Posts };
