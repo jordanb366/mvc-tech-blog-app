@@ -1,5 +1,17 @@
 {{! home page will go here }}
-<div>
-  <p>Homepage test</p>
-  <p>Post will go here!!</p>
-</div>
+<!-- Loop over each object in the projects array -->
+{{#each posts as |post|}}
+  <div>
+    <div>
+      <h2>
+        <!-- Call helper function with triple brackets to render the emoji span as HTML -->
+        {{{get_emoji}}}
+        <a href="/posts/{{post.id}}">{{post.title}}</a>
+      </h2>
+
+      <p>{{post.content}}</p>
+
+      <p>Created by {{post.user.name}} on {{format_date post.date_posted}}</p>
+    </div>
+  </div>
+{{/each}}
