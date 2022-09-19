@@ -15,16 +15,30 @@
       </h1>
       <nav>
         {{! Will need to render the login/logout buttons some where on nav }}
-
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/dashboard">Dashboard</a></li>
+          {{#if logged_in}}
+            <li>
+              <button class="btn" id="logout">logout</button>
+            </li>
+          {{else}}
+            <li><a href="/login">Login</a></li>
+          {{/if}}
+        </ul>
       </nav>
     </header>
     <main>
 
       {{{body}}}
+
     </main>
     <footer>
 
     </footer>
+    {{#if logged_in}}
+      <script src="/js/logout.js"></script>
+    {{/if}}
   </body>
 
 </html>
