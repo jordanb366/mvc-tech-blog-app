@@ -1,5 +1,11 @@
 <div class="">
   <h2>{{title}}</h2>
   <p>{{content}}</p>
-  <p>Created by {{user.name}} on {{format_date date_posted}}</p>
+  <p>Posted by {{user.name}} on {{format_date date_posted}}</p>
 </div>
+
+{{#if logged_in}}
+  <input id="comment" />
+  <button class="comment-button">Create Comment</button>
+  <script src="/js/comment.js"></script>
+{{/if}}
