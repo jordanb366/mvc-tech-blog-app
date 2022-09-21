@@ -8,10 +8,11 @@ router.post("/", withAuth, async (req, res) => {
   try {
     const newComments = await Comments.create({
       ...req.body,
-      post_id: req.session.post_id,
+      // post_id: req.session.post_id,
+      username: req.session.user_name,
     });
 
-    res.status(200).json(newPost);
+    res.status(200).json(newComments);
   } catch (err) {
     res.status(400).json(err);
   }
