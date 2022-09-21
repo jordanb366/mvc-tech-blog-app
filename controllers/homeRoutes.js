@@ -83,6 +83,42 @@ router.get("/dashboard", withAuth, async (req, res) => {
   }
 });
 
+// Takes to edit posts
+router.get("/dashboard/posts/:id", async (req, res) => {
+  try {
+    const postsData = await Posts.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          attributes: ["name"],
+        },
+      ],
+    });
+
+    const posts = postsData.get({ plain: true });
+    console.log(posts);
+
+    // const commentsData = await Comments.findByPk(req.params.id, {
+    //   include: [
+    //     {
+    //       model: Posts,
+    //       attributes: ["id"],
+    //     },
+    //   ],
+    // });
+
+    // const comments = commentsData.get({ plain: true });
+    // console.log(comments);
+
+    res.render("editpost", {
+      ...posts,
+      logged_in: req.session.logged_in,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // Use withAuth middleware to prevent access to route
 router.get("/newpost", withAuth, async (req, res) => {
   try {
