@@ -1,5 +1,5 @@
 const deleteHandler = async (event) => {
-  // event.preventDefault();
+  event.preventDefault();
   console.log("test");
   // const id = event.target.hasAttribute("data-id");
   // console.log(id);
@@ -18,6 +18,4 @@ const deleteHandler = async (event) => {
   }
 };
 
-document
-  .querySelector(".update-or-del")
-  .addEventListener("click", deleteHandler);
+document.querySelector(".new-delete").addEventListener("click", deleteHandler);

@@ -2,7 +2,7 @@
   <div>
     <h3>Update or delete post</h3>
 
-    <form class="form update-or-del">
+    <form class="form update-form del-form">
       <div class="form-group">
       
         <label for="post-title">Title:</label>
@@ -15,11 +15,15 @@
       
       <div class="form-group">
         {{!-- <button type="submit" class="btn btn-primary">Update</button> --}}
-        <button data-id="{{id}}" class="btn btn-primary new-delete">Delete</button>
+        
+          <button type="submit" data-id="{{id}}" class="btn btn-primary">Update</button>
       </div>
     </form>
     
-  </div>
+    <button data-id="{{id}}" class="btn btn-primary new-delete">Delete</button>
 
+  </div>
+ <script src="../../js/update.js"></script>
   <script src="../../js/delete.js"></script>
+  
 
