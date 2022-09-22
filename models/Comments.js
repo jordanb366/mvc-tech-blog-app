@@ -27,6 +27,7 @@ Comments.init(
     post_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      onDelete: "CASCADE",
       references: {
         model: "posts",
         key: "id",
