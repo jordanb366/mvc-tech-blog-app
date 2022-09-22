@@ -1,15 +1,18 @@
-{{! home page will go here }}
-<!-- Loop over each object in the projects array -->
+{{! home page  }}
+
 {{#each posts as |post|}}
+  {{! Goes through each posts as post }}
   <div class="bg-light m-5 p-2 d-flex justify-content-center">
     <div>
       <h2 class="card-header text-center">
         <a href="/posts/{{post.id}}">{{post.title}}</a>
+        {{! Displays post title, and link to post }}
       </h2>
 
       <p class="p-3">{{post.content}}</p>
-
+      {{! Displays post content }}
       <p>Posted by {{post.user.name}} on {{format_date post.date_posted}}</p>
+      {{! Create by info and date }}
     </div>
   </div>
 {{/each}}

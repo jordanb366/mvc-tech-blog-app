@@ -1,8 +1,9 @@
+// Require comments model
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
-
+// Comments extends model
 class Comments extends Model {}
-
+// Comments model for id, comment, date posted, username, and post id
 Comments.init(
   {
     id: {

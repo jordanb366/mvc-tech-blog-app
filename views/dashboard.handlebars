@@ -1,3 +1,4 @@
+{{! Dashboard handlebars page }}
 <div class="bg-secondary p-2">
   <div class="m-5 p-2 d-flex justify-content-center">
     <div>
@@ -6,10 +7,12 @@
     </div>
   </div>
   {{#each posts as |post|}}
+    {{! Renders each posts as post }}
     <div class="bg-light m-5 p-2 d-flex justify-content-center">
       <div>
         <h2>
           <a href="/dashboard/posts/{{post.id}}">{{post.title}}</a>
+          {{! Posts id for link and post tile }}
         </h2>
 
       </div>

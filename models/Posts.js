@@ -1,8 +1,9 @@
+// Posts model requirements
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
-
+// Posts extends model
 class Posts extends Model {}
-
+// Posts model for id, title, content, date posted, and user id referencing user id
 Posts.init(
   {
     id: {

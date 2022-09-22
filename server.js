@@ -1,4 +1,4 @@
-// Server js code will go here
+// Imports and requires
 const express = require("express");
 const path = require("path");
 const session = require("express-session");
@@ -11,9 +11,9 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-
+// Handlebars helpers
 const hbs = exphbs.create({ helpers });
-
+// Session
 const sess = {
   secret: "Super secret secret",
   cookie: {
@@ -28,7 +28,7 @@ const sess = {
     db: sequelize,
   }),
 };
-
+// Middleware
 app.use(session(sess));
 
 app.use(express.json());
@@ -39,7 +39,7 @@ app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
 app.use(routes);
-
+// Syncs and starts
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log("Now listening"));
 });

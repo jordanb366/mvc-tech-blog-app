@@ -24,18 +24,12 @@ router.get("/", async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
-  // const postsData = await Comments.findAll({
-  //   include: [{ model: Posts }],
-  //   where: {},
-  // });
-  // // Serialize data so the template can read it
-  // const posts = postsData.map((post) => post.get({ plain: true }));
-  // console.log(posts);
 });
 
 // posts with param route
 router.get("/posts/:id", async (req, res) => {
   try {
+    // Gets posts by the param id
     const postsData = await Posts.findByPk(req.params.id, {
       include: [
         {
@@ -44,27 +38,28 @@ router.get("/posts/:id", async (req, res) => {
         },
       ],
     });
-
+    // Serializes posts so template can read
     const posts = postsData.get({ plain: true });
     console.log(posts);
 
+    // Gets comments data
     const commentsData = await Comments.findAll({
       include: {
         model: Posts,
         attributes: ["id"],
       },
-
+      // Only where post_id is the post id associated with comment
       where: {
         post_id: req.params.id,
       },
     });
-
+    // Serialize data
     const comments = commentsData.map((comment) =>
       comment.get({ plain: true })
     );
-    // const comments = commentsData.get({ plain: true });
-    console.log(comments);
 
+    console.log(comments);
+    // Render post data
     res.render("post", {
       ...posts,
       comments,
@@ -74,30 +69,7 @@ router.get("/posts/:id", async (req, res) => {
     res.status(500).json(err);
   }
 });
-
-router.get("/test", async (req, res) => {
-  try {
-    // Get all posts and JOIN with user data
-    const postsData = await Posts.findAll({
-      include: [
-        {
-          model: User,
-          attributes: ["name"],
-        },
-      ],
-    });
-    // Serialize data so the template can read it
-    const posts = postsData.map((post) => post.get({ plain: true }));
-    console.log(posts);
-    res.render("post", {
-      ...posts,
-      logged_in: req.session.logged_in,
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
+// Dashboard route
 // Use withAuth middleware to prevent access to route
 router.get("/dashboard", withAuth, async (req, res) => {
   try {
@@ -106,9 +78,10 @@ router.get("/dashboard", withAuth, async (req, res) => {
       attributes: { exclude: ["password"] },
       include: [{ model: Posts }],
     });
-
+    // Serialize user data
     const user = userData.get({ plain: true });
     console.log(user);
+    // Render dashboar and data
     res.render("dashboard", {
       ...user,
       logged_in: true,
@@ -118,9 +91,10 @@ router.get("/dashboard", withAuth, async (req, res) => {
   }
 });
 
-// Takes to edit posts
+// Takes to edit posts on dashboard
 router.get("/dashboard/posts/:id", withAuth, async (req, res) => {
   try {
+    // Gets posts by id params
     const postsData = await Posts.findByPk(req.params.id, {
       include: [
         {
@@ -129,10 +103,10 @@ router.get("/dashboard/posts/:id", withAuth, async (req, res) => {
         },
       ],
     });
-
+    // Serializes posts data
     const posts = postsData.get({ plain: true });
     console.log(posts);
-
+    // Renders all data
     res.render("editpost", {
       ...posts,
       logged_in: req.session.logged_in,
@@ -141,7 +115,7 @@ router.get("/dashboard/posts/:id", withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
+// new posts routes
 // Use withAuth middleware to prevent access to route
 router.get("/newpost", withAuth, async (req, res) => {
   try {
@@ -150,9 +124,10 @@ router.get("/newpost", withAuth, async (req, res) => {
       attributes: { exclude: ["password"] },
       include: [{ model: Posts }],
     });
-
+    // Serialize user data
     const user = userData.get({ plain: true });
     console.log(user);
+    // Render user data
     res.render("newpost", {
       ...user,
       logged_in: true,
