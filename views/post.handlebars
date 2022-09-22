@@ -1,28 +1,43 @@
-<div class="">
-  <h2>{{title}}</h2>
-  <p>{{content}}</p>
-  <p>Posted by {{user.name}} on {{format_date date_posted}}</p>
+<div class="bg-light">
+<div class="bg-light m-5 p-2 d-flex justify-content-center">
+  <div>
+    <h2 class="card-header text-center">{{title}}</h2>
+    <p class="p-2">{{content}}</p>
+    <p>Posted by {{user.name}} on {{format_date date_posted}}</p>
+  </div>
 </div>
 
-{{#if logged_in}}
-  
-  <form class="form new-comment-form">
+
+  <div class="bg-light p-5 m-5">
+    <h6>Add a comment:</h3>
+    <form class="form new-comment-form">
       <div class="form-group">
-      <input id="comment" type="text" name="comment" />
-  <button type="submit" class="comment-button">Create Comment</button>
+        <input id="comment" type="text" name="comment" />
+        {{#if logged_in}}
+        <button type="submit" class="btn btn-primary btn-sm comment-button">Create
+          Comment</button>
       </div>
     </form>
   </div>
-   <script src="/js/comment.js"></script>
+  <script src="/js/comment.js"></script>
+{{else}}
+
+  <a class="nav-link" href="/login">You must be logged in to create a comment</a>
+
 {{/if}}
 
 {{#each comments as |comment|}}
-  <div>
-    <h6>Comment</h6>
-    <p>{{comment.comment}}</p>
-    <p>Posted by {{comment.username}}
-      
-      on {{format_date comment.date_posted}}
+  <div class="bg-secondary text-light m-5 p-2 d-flex justify-content-center">
+    <div>
+      <h6 class="text-center">Comment</h6>
+      <p>{{comment.comment}}</p>
+      <p>Posted by
+        {{comment.username}}
+
+        on
+        {{format_date comment.date_posted}}
       </p>
+    </div>
   </div>
-  {{/each}}
+{{/each}}
+</div>
