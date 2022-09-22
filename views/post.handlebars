@@ -16,10 +16,13 @@
    <script src="/js/comment.js"></script>
 {{/if}}
 
-{{#each comments}}
-  <div class="">
-    <h4>Comment</h4>
-    <p>{{comments.comment}}</p>
-    <p>Posted by {{comments.username}} on {{format_date date_posted}}</p>
+{{#each comments as |comment|}}
+  <div>
+    <h6>Comment</h6>
+    <p>{{comment.comment}}</p>
+    <p>Posted by {{comment.username}}
+      
+      on {{format_date comment.date_posted}}
+      </p>
   </div>
-{{/each}}
+  {{/each}}

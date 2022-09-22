@@ -9,11 +9,11 @@ User.hasMany(Posts, {
 
 Posts.belongsTo(User, {
   foreignKey: "user_id",
-  //   onDelete: "CASCADE",
+  onDelete: "CASCADE",
 });
 
 Comments.belongsTo(Posts, {
   foreignKey: "post_id",
-  //   onDelete: "CASCADE",
+  onDelete: "CASCADE",
 });
 module.exports = { User, Posts, Comments };

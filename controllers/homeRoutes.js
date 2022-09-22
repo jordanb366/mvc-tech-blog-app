@@ -14,10 +14,9 @@ router.get("/", async (req, res) => {
         },
       ],
     });
-
     // Serialize data so the template can read it
     const posts = postsData.map((post) => post.get({ plain: true }));
-
+    console.log(posts);
     res.render("homepage", {
       posts,
       logged_in: req.session.logged_in,
@@ -25,6 +24,13 @@ router.get("/", async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
+  // const postsData = await Comments.findAll({
+  //   include: [{ model: Posts }],
+  //   where: {},
+  // });
+  // // Serialize data so the template can read it
+  // const posts = postsData.map((post) => post.get({ plain: true }));
+  // console.log(posts);
 });
 
 // posts with param route
@@ -42,18 +48,47 @@ router.get("/posts/:id", async (req, res) => {
     const posts = postsData.get({ plain: true });
     console.log(posts);
 
-    // const commentsData = await Comments.findByPk(req.params.id, {
-    //   include: [
-    //     {
-    //       model: Posts,
-    //       attributes: ["id"],
-    //     },
-    //   ],
-    // });
+    const commentsData = await Comments.findAll({
+      include: {
+        model: Posts,
+        attributes: ["id"],
+      },
 
+      where: {
+        post_id: req.params.id,
+      },
+    });
+
+    const comments = commentsData.map((comment) =>
+      comment.get({ plain: true })
+    );
     // const comments = commentsData.get({ plain: true });
-    // console.log(comments);
+    console.log(comments);
 
+    res.render("post", {
+      ...posts,
+      comments,
+      logged_in: req.session.logged_in,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.get("/test", async (req, res) => {
+  try {
+    // Get all posts and JOIN with user data
+    const postsData = await Posts.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ["name"],
+        },
+      ],
+    });
+    // Serialize data so the template can read it
+    const posts = postsData.map((post) => post.get({ plain: true }));
+    console.log(posts);
     res.render("post", {
       ...posts,
       logged_in: req.session.logged_in,
@@ -84,7 +119,7 @@ router.get("/dashboard", withAuth, async (req, res) => {
 });
 
 // Takes to edit posts
-router.get("/dashboard/posts/:id", async (req, res) => {
+router.get("/dashboard/posts/:id", withAuth, async (req, res) => {
   try {
     const postsData = await Posts.findByPk(req.params.id, {
       include: [
@@ -97,18 +132,6 @@ router.get("/dashboard/posts/:id", async (req, res) => {
 
     const posts = postsData.get({ plain: true });
     console.log(posts);
-
-    // const commentsData = await Comments.findByPk(req.params.id, {
-    //   include: [
-    //     {
-    //       model: Posts,
-    //       attributes: ["id"],
-    //     },
-    //   ],
-    // });
-
-    // const comments = commentsData.get({ plain: true });
-    // console.log(comments);
 
     res.render("editpost", {
       ...posts,
