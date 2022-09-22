@@ -11,7 +11,8 @@
     "sequelize": "^6.22.1"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js",
+    "seed": "node seeds/seed.js"
   },
   "name": "mvc-tech-blog-app",
   "description": "A tech blog using MVC paradigm",
